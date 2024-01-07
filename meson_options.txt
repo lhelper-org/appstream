@@ -49,6 +49,12 @@ option('zstd-support',
        description : 'Support Zstd for (de)compressing local / remote metadata'
 )
 
+option('localization',
+       type : 'boolean',
+       value : true,
+       description : 'Enable localisation for provided programes'
+)
+
 option('docs',
        type : 'boolean',
        value : false,
@@ -63,6 +69,11 @@ option('install-docs',
        type : 'boolean',
        value : true,
        description : 'Install documentation for API and specification'
+)
+option('tests',
+       type : 'boolean',
+       value : true,
+       description : 'Build and run tests programs'
 )
 
 #

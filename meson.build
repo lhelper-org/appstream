@@ -214,11 +214,17 @@ if get_option('compose')
     subdir('compose/')
 endif
 subdir('tools/')
-subdir('po/')
+if get_option('localization')
+    subdir('po/')
+endif
 subdir('data/')
 subdir('contrib/')
-subdir('docs/')
-subdir('tests/')
+if get_option('docs')
+    subdir('docs/')
+endif
+if get_option('tests')
+    subdir('tests/')
+endif
 if get_option('qt') or get_option('qt5')
     subdir('qt/')
 endif

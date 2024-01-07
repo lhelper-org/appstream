@@ -24,22 +24,24 @@ metainfo_with_relinfo = custom_target('gen-output',
     command : [ascli_exe, 'news-to-metainfo', '--limit=6', '@INPUT0@', '@INPUT1@', '@OUTPUT@']
 )
 
-metainfo_i18n = i18n.itstool_join(
-    input:  metainfo_with_relinfo,
-    output: 'org.freedesktop.appstream.cli.metainfo.xml',
-    mo_targets: i18n_result[0],
-    its_files: [join_paths(meson.current_source_dir(), 'its', 'metainfo.its')],
-    install: true,
-    install_dir: metainfo_dir,
-)
+if get_option('localization')
+    metainfo_i18n = i18n.itstool_join(
+        input:  metainfo_with_relinfo,
+        output: 'org.freedesktop.appstream.cli.metainfo.xml',
+        mo_targets: i18n_result[0],
+        its_files: [join_paths(meson.current_source_dir(), 'its', 'metainfo.its')],
+        install: true,
+        install_dir: metainfo_dir,
+    )
 
-test('as-validate_metainfo.cli',
-    ascli_exe,
-    args: ['validate',
-           '--pedantic',
-           '--no-net',
-           metainfo_i18n]
-)
+    test('as-validate_metainfo.cli',
+        ascli_exe,
+        args: ['validate',
+               '--pedantic',
+               '--no-net',
+               metainfo_i18n]
+    )
+endif
 
 # install appstream.conf default template
 install_data('appstream.conf',
